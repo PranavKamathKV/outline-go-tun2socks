@@ -61,6 +61,6 @@ func ConnectShadowsocksTunnel(fd int, host string, port int, password, cipher st
 	if err != nil {
 		return nil, err
 	}
-	go tunnel.ProcessInputPackets(t, tun)
+	go tunnel.ProcessInputPackets(t, tun, nil)
 	return t, nil
 }

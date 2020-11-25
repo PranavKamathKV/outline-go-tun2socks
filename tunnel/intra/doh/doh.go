@@ -68,6 +68,7 @@ type Token interface{}
 type Listener interface {
 	OnQuery(url string) Token
 	OnResponse(Token, *Summary)
+	OnProcess(buffer string)
 }
 
 // Transport represents a DNS query transport.  This interface is exported by gobind,

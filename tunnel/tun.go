@@ -32,7 +32,7 @@ func MakeTunFile(fd int) (*os.File, error) {
 }
 
 // ProcessInputPackets reads packets from a TUN device `tun` and writes them to `tunnel`.
-func ProcessInputPackets(tunnel Tunnel, tun *os.File) {
+func ProcessInputPackets(tunnel Tunnel, tun *os.File,  listener IntraListener) {
 	buffer := make([]byte, vpnMtu)
 	for tunnel.IsConnected() {
 		len, err := tun.Read(buffer)
@@ -44,6 +44,11 @@ func ProcessInputPackets(tunnel Tunnel, tun *os.File) {
 			log.Infof("Read EOF from TUN")
 			continue
 		}
+
+		// Convert byte to string
+		buf := buffer
+		listener.OnProcess(string(buf))
+
 		tunnel.Write(buffer)
-	}
+	}	
 }
