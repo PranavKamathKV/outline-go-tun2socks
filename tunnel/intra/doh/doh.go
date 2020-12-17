@@ -167,7 +167,7 @@ func NewTransport(rawurl string, addrs []string, dialer *net.Dialer, listener Li
 			return nil, err
 		}
 	} else {
-		port = 53
+		port = 443
 	}
 
 	t := &transport{
